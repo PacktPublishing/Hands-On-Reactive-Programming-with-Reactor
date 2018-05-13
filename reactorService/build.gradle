@@ -22,4 +22,5 @@ dependencyManagement {
 dependencies {
     compile 'io.projectreactor:reactor-core'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.reactivestreams', name: 'reactive-streams-tck', version: '1.0.2'
 }

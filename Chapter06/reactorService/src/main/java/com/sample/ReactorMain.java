@@ -25,7 +25,6 @@ import static org.springframework.web.reactive.function.BodyInserters.fromPublis
 @SpringBootApplication
 @Configuration
 @ComponentScan("com.sample.web")
-@EnableWebFlux
 public class ReactorMain {
     public static void main(String[] args) {
         SpringApplication.run(ReactorMain.class, args);

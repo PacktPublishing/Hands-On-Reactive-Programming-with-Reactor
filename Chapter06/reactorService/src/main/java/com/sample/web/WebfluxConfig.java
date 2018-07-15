@@ -14,15 +14,8 @@ import org.springframework.web.reactive.result.view.script.ScriptTemplateConfigu
 
 @EnableWebFlux
 @Configuration
-public class WebfluxConfig implements WebFluxConfigurer, ApplicationContextAware {
+public class WebfluxConfig implements WebFluxConfigurer {
 
-
-    private ApplicationContext ctx;
-
-    @Override
-    public void setApplicationContext(ApplicationContext context) {
-        this.ctx = context;
-    }
 
    /* @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {

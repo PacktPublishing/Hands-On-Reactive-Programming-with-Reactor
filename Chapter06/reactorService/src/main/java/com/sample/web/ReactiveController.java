@@ -15,6 +15,12 @@ public class ReactiveController {
     @GetMapping("/")
     public String handle(Model model) {
         model.addAttribute("text", "Hello WebFlux");
+        return "home.html";
+    }
+
+    @GetMapping("/freemarker")
+    public String handleFreemarker(Model model) {
+        model.addAttribute("text", "Hello WebFlux");
         return "home";
     }
 
@@ -35,6 +41,6 @@ public class ReactiveController {
             return Tuples.of(state.getT2(), state.getT1() + state.getT2());
         });
         model.addAttribute("series", fibonacciGenerator.collectList());
-        return "numbers";
+        return "numbers.html";
     }
 }

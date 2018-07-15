@@ -20,7 +20,6 @@ repositories {
 dependencies {
         compile 'org.springframework.boot:spring-boot-starter-webflux'
         compile 'org.springframework:spring-context-support'
-    compile group: 'org.freemarker', name: 'freemarker', version: '2.3.28'
-
-  }
+        compile group: 'org.freemarker', name: 'freemarker', version: '2.3.28'
+}
 

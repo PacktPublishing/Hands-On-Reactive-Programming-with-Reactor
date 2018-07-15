@@ -24,6 +24,12 @@ public class ReactiveController {
         return "home";
     }
 
+    @GetMapping("/thymeleaf")
+    public String handleThymleaf(Model model) {
+        model.addAttribute("text", "Hello WebFlux");
+        return "home";
+    }
+
     @GetMapping("/text")
     @ResponseBody
     public Publisher<String> handler() {

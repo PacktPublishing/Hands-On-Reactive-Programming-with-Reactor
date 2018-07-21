@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Reactor Sample</title>
         <meta charset="UTF-8"/>
@@ -9,12 +9,9 @@
     </head>
     <body>
         <section class="container">
-            {{#series}}
-            <div class="row">
-                {{.}}
-            </div>
-            {{/series}}
+            <ul class="list-group">
+                <li th:each="item : ${series}" th:text="${item}" class="list-group-item"></li>
+            </ul>
         </section>
-
     </body>
 </html>

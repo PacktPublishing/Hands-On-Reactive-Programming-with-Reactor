@@ -47,6 +47,12 @@ public class WebfluxConfig implements WebFluxConfigurer {
         return configurer;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("classpath:/static/");
+    }
+
 
     /*@Bean
     public FreeMarkerConfigurer freeMarkerConfigurer() {

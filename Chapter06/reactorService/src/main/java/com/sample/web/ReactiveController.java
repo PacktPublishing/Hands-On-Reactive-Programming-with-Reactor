@@ -1,4 +1,6 @@
 package com.sample.web;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +11,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuples;
 
+import java.util.List;
+
 @Controller
 public class ReactiveController {
+    private static final ObjectMapper om = new ObjectMapper();
 
     @GetMapping("/")
     public String handle(Model model) {
@@ -46,7 +51,11 @@ public class ReactiveController {
                 sink.next(state.getT1());
             return Tuples.of(state.getT2(), state.getT1() + state.getT2());
         });
-        model.addAttribute("series", fibonacciGenerator.collectList());
-        return "numbers.html";
+        Mono<List<Long>> listMono = fibonacciGenerator.collectList();
+        model.addAttribute("series",listMono);
+        return "numbers";
     }
+
+
+
 }

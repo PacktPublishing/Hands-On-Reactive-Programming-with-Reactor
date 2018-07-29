@@ -1,0 +1,26 @@
+plugins {
+    id "io.spring.dependency-management" version "1.0.1.RELEASE"
+    id "org.springframework.boot" version "2.0.3.RELEASE"
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+
+group 'com.reactor'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-webflux'
+        compile 'org.springframework:spring-context-support'
+        compile group: 'org.freemarker', name: 'freemarker', version: '2.3.28'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+

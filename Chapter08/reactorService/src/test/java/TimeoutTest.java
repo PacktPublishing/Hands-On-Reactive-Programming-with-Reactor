@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch;
 public class TimeoutTest {
 
     @Test
-    public void testTimeoutWithoutFallback() throws  Exception{
+    public void testTimeout() throws  Exception{
         Flux<Long> fibonacciGenerator = Flux.generate(() -> Tuples.<Long,
                 Long>of(0L, 1L), (state, sink) -> {
             if (state.getT1() < 0)
@@ -30,7 +30,7 @@ public class TimeoutTest {
     }
 
     @Test
-    public void testTimeoutWIthFallback() throws  Exception{
+    public void testTimeoutWithFallback() throws  Exception{
         Flux<Long> fibonacciGenerator = Flux.generate(() -> Tuples.<Long,
                 Long>of(0L, 1L), (state, sink) -> {
             if (state.getT1() < 0)
@@ -44,10 +44,10 @@ public class TimeoutTest {
         fibonacciGenerator
                 .delayElements(Duration.ofSeconds(1))
                 .timeout(Duration.ofMillis(500),Flux.just(-1L))
-                .subscribe(System.out::println, e -> {
-                    System.out.println(e);
+                .subscribe(e -> {
+                    System.out.println("Received :"+e);
                     countDownLatch.countDown();
-                }, countDownLatch::countDown);
+                });
         countDownLatch.await();
     }
 
@@ -66,7 +66,7 @@ public class TimeoutTest {
         fibonacciGenerator
                  .retry(1)
                 .subscribe(System.out::println, e -> {
-                    System.out.println(e);
+                    System.out.println("received :"+e);
                     countDownLatch.countDown();
                 },countDownLatch::countDown);
         countDownLatch.await();

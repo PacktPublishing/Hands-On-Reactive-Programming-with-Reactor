@@ -14,10 +14,11 @@ import org.springframework.web.reactive.result.view.script.ScriptTemplateConfigu
 @Configuration
 public class WebfluxConfig implements WebFluxConfigurer {
 
+
    @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.scriptTemplate();
-        registry.freeMarker();
+       // registry.scriptTemplate();
+        //registry.freeMarker();
    }
 
     @Bean

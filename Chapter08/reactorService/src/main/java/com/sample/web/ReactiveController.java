@@ -10,6 +10,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuples;
 
+import java.time.Duration;
+
 @RestController
 public class ReactiveController {
 
@@ -45,7 +47,7 @@ public class ReactiveController {
         return "numbers";
     }
 
-    @GetMapping(value = "/numbers1", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+    @GetMapping(value = "/numbers1", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Long>  handleSeries1() {
         Flux<Long> fibonacciGenerator = Flux.generate(() -> Tuples.<Long,
                 Long>of(0L, 1L), (state, sink) -> {
@@ -56,6 +58,6 @@ public class ReactiveController {
             System.out.println("numbers1 generated :"+state.getT1());
             return Tuples.of(state.getT2(), state.getT1() + state.getT2());
         });
-        return fibonacciGenerator;
+        return fibonacciGenerator.delayElements(Duration.ofSeconds(1));
     }
 }

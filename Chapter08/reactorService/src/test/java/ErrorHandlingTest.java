@@ -1,7 +1,11 @@
 import org.junit.Test;
+import reactor.core.Exceptions;
 import reactor.core.publisher.Flux;
 import reactor.util.function.Tuples;
 
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.HashSet;
 
@@ -88,8 +92,8 @@ public class ErrorHandlingTest {
             return Tuples.of(state.getT2(), state.getT1() + state.getT2());
         });
         fibonacciGenerator
-                .doFinally( x -> System.out.println("invoking"))
-                .subscribe(System.out::println);
+                .doFinally( x -> System.out.println("invoking finally"))
+                .subscribe(System.out::println, e -> e.printStackTrace());
     }
 
 
@@ -140,6 +144,32 @@ public class ErrorHandlingTest {
         fibonacciGenerator
                 .onErrorResume(x -> Flux.just(0L,-1L,-2L))
                 .subscribe(System.out::println);
+    }
+
+
+    void raiseCheckedException() throws IOException {
+        throw new IOException("Raising checked Exception");
+    }
+
+    @Test
+    public void testUsingMethod() {
+        Flux<Long> fibonacciGenerator = Flux.generate(() -> Tuples.<Long,
+                Long>of(0L, 1L), (state, sink) -> {
+            if (state.getT1() < 0)
+                sink.complete();
+            else
+                sink.next(state.getT1());
+
+            return Tuples.of(state.getT2(), state.getT1() + state.getT2());
+        });
+        Closeable closable = () -> System.out.println("closing the stream");
+        Flux.using(() -> closable, x -> fibonacciGenerator, e -> {
+            try {
+                e.close();
+            } catch (Exception e1) {
+                throw Exceptions.propagate(e1);
+            }
+        }).subscribe(System.out::println);
     }
 
 }

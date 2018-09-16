@@ -26,21 +26,43 @@ public class ReactorTest {
                 sink.complete();
             else
                 sink.next(state.getT1());
-            System.out.println("generating next of " + state.getT2());
+            System.out.println("generating next of " + state.getT1());
+
+            return Tuples.of(state.getT2(), state.getT1() + state.getT2());
+        });
+        StepVerifier.create(fibonacciGenerator.take(10))
+                .expectNext(0L, 1L, 1L)
+                .expectNextCount(7)
+                .verifyComplete();
+
+        // Expect error for validating errors
+    }
+
+    @Test
+    public void testErrorExpectation() throws Exception {
+        Flux<Long> fibonacciGenerator = Flux.generate(() -> Tuples.<Long,
+                Long>of(0L, 1L), (state, sink) -> {
+            if (state.getT1() > 30)
+                sink.error(new IllegalStateException("Value out of bound"));
+            else
+                sink.next(state.getT1());
+            System.out.println("generating next of " + state.getT1());
 
             return Tuples.of(state.getT2(), state.getT1() + state.getT2());
         });
         StepVerifier.create(fibonacciGenerator.take(10))
                 .expectNext(0L, 1L, 1L)
                 .expectNextCount(6)
-                .expectComplete()
+                .expectErrorSatisfies(x -> {
+                    assert(x instanceof IllegalStateException);
+                })
                 .verify();
 
         // Expect error for validating errors
     }
 
     @Test
-    public void testConsumeWith() throws Exception {
+    public void testConsumeWhile() throws Exception {
         Flux<Long> fibonacciGenerator = Flux.generate(() -> Tuples.<Long,
                 Long>of(0L, 1L), (state, sink) -> {
             if (state.getT1() < 0)
@@ -52,8 +74,8 @@ public class ReactorTest {
             return Tuples.of(state.getT2(), state.getT1() + state.getT2());
         });
 
-        StepVerifier.create(fibonacciGenerator, Long.MAX_VALUE)
-                .expectNextMatches(x -> x >= 0)
+        StepVerifier.create(fibonacciGenerator)
+                .thenConsumeWhile(x -> x >= 0)
                 .verifyComplete();
 
     }
@@ -68,7 +90,6 @@ public class ReactorTest {
             else
                 sink.next(state.getT1());
             System.out.println("generating next of " + state.getT2());
-
             return Tuples.of(state.getT2(), state.getT1() + state.getT2());
         });
 
@@ -99,7 +120,7 @@ public class ReactorTest {
         StepVerifier.create(fibonacciGenerator, Long.MAX_VALUE)
                 .recordWith(() -> new ArrayList<>())
                 .thenConsumeWhile(x -> x >= 0)
-                .consumeRecordedWith(x -> System.out.println(x))
+                .expectRecordedMatches(x -> x.size() > 0)
                 .expectComplete()
                 .verify();
     }

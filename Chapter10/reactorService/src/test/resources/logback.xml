@@ -1,0 +1,17 @@
+<configuration>
+
+    <!-- The underlying appender will be the standard console one. -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] [%-5level] %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+     <!-- Direct all logging through the AsyncAppender. -->
+    <root level="DEBUG">
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>

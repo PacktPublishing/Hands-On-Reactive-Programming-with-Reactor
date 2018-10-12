@@ -34,7 +34,7 @@ public interface Publisher<T> {
 ```
 
 **Following is what you need for this book:**
-If you’re looking to develop event- and data-driven applications easily with Reactor, this book is for you. Sound knowledge of Java fundamentals is necessary to understand the concepts covered in the book.
+If youâ€™re looking to develop event- and data-driven applications easily with Reactor, this book is for you. Sound knowledge of Java fundamentals is necessary to understand the concepts covered in the book.
 
 With the following software and hardware list you can run all code files present in the book (Chapter 1-15).
 ### Software and Hardware List
@@ -50,12 +50,13 @@ With the following software and hardware list you can run all code files present
 * Reactive Programming with Swift 4 [[Packt]](https://www.packtpub.com/application-development/reactive-programming-swift-4?utm_source=github&utm_medium=repository&utm_campaign=9781787120211 ) [[Amazon]](https://www.amazon.com/dp/178712021X)
 
 ## Get to Know the Author
-**Rahul Sharma **
- is a seasoned Java developer with around 13 years' experience in Java/J2EE applications. He has worked at companies ranging from enterprises to start-ups. Being an open source enthusiast, he has contributed to various projects, including Apache Crunch. He is currently working with a Java framework, Project Reactor.
+**Rahul Sharma**
+is a seasoned Java developer with around 13 years' experience in Java/J2EE applications. He has worked at companies ranging from enterprises to start-ups. Being an open source enthusiast, he has contributed to various projects, including Apache Crunch. He is currently working with a Java framework, Project Reactor.
 
 ## Other books by the authors
 * [NGINX High Performance](https://www.packtpub.com/networking-and-servers/nginx-high-performance?utm_source=github&utm_medium=repository&utm_campaign=9781785281839 )
 
 * [Mastering RUST - Second Edition](https://www.packtpub.com/application-development/mastering-rust-second-edition?utm_source=github&utm_medium=repository&utm_campaign=9781789346572 )
 
-
+### Suggestions and Feedback
+[Click here](https://docs.google.com/forms/d/e/1FAIpQLSdy7dATC6QmEL81FIUuymZ0Wy9vH1jHkvpY57OiMeKGqib_Ow/viewform) if you have any feedback or suggestions.
